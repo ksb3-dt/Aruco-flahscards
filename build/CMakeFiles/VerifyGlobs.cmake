@@ -7,6 +7,7 @@ file(GLOB NEW_GLOB LIST_DIRECTORIES true "/home/CIN/ksb3/Aruco-flahscards/src/*.
 set(OLD_GLOB
   "/home/CIN/ksb3/Aruco-flahscards/src/Camera.cpp"
   "/home/CIN/ksb3/Aruco-flahscards/src/IPCamera.cpp"
+  "/home/CIN/ksb3/Aruco-flahscards/src/MarkerDetector.cpp"
   "/home/CIN/ksb3/Aruco-flahscards/src/VideoFileCamera.cpp"
   "/home/CIN/ksb3/Aruco-flahscards/src/WebcamCamera.cpp"
   "/home/CIN/ksb3/Aruco-flahscards/src/main.cpp"

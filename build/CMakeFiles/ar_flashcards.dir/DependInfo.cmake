@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/CIN/ksb3/Aruco-flahscards/src/Camera.cpp" "CMakeFiles/ar_flashcards.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/ar_flashcards.dir/src/Camera.cpp.o.d"
   "/home/CIN/ksb3/Aruco-flahscards/src/IPCamera.cpp" "CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.o" "gcc" "CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.o.d"
+  "/home/CIN/ksb3/Aruco-flahscards/src/MarkerDetector.cpp" "CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o" "gcc" "CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o.d"
   "/home/CIN/ksb3/Aruco-flahscards/src/VideoFileCamera.cpp" "CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o" "gcc" "CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o.d"
   "/home/CIN/ksb3/Aruco-flahscards/src/WebcamCamera.cpp" "CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o" "gcc" "CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o.d"
   "/home/CIN/ksb3/Aruco-flahscards/src/main.cpp" "CMakeFiles/ar_flashcards.dir/src/main.cpp.o" "gcc" "CMakeFiles/ar_flashcards.dir/src/main.cpp.o.d"

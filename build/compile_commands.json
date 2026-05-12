@@ -13,6 +13,12 @@
 },
 {
   "directory": "/home/CIN/ksb3/Aruco-flahscards/build",
+  "command": "/usr/bin/c++  -I/home/CIN/ksb3/Aruco-flahscards/include -isystem /usr/include/opencv4 -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -Wshadow -Wconversion -o CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o -c /home/CIN/ksb3/Aruco-flahscards/src/MarkerDetector.cpp",
+  "file": "/home/CIN/ksb3/Aruco-flahscards/src/MarkerDetector.cpp",
+  "output": "CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o"
+},
+{
+  "directory": "/home/CIN/ksb3/Aruco-flahscards/build",
   "command": "/usr/bin/c++  -I/home/CIN/ksb3/Aruco-flahscards/include -isystem /usr/include/opencv4 -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -Wshadow -Wconversion -o CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o -c /home/CIN/ksb3/Aruco-flahscards/src/VideoFileCamera.cpp",
   "file": "/home/CIN/ksb3/Aruco-flahscards/src/VideoFileCamera.cpp",
   "output": "CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o"

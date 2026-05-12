@@ -13,15 +13,18 @@ struct DetectedMarker {
 /// Detects ArUco markers in camera frames. Stateless aside from configuration.
 class MarkerDetector {
 public:
-    /// Default dictionary: 6x6 markers, 250 unique IDs — a good balance of
-    /// robustness and ID space for this project.
+    /// Default dictionary: 4x4 markers, 50 unique IDs. Matches the markers
+    /// produced by chev.me/arucogen with the default settings, and the small
+    /// dictionary size gives the largest inter-marker Hamming distance, which
+    /// minimizes false positives. 50 IDs is plenty for a flashcard set.
     explicit MarkerDetector(
-        cv::aruco::PredefinedDictionaryType dict = cv::aruco::DICT_6X6_250);
+        cv::aruco::PREDEFINED_DICTIONARY_NAME dict = cv::aruco::DICT_4X4_50);
 
     /// Detects every marker visible in the frame.
     std::vector<DetectedMarker> detect(const cv::Mat& frame) const;
 
 private:
-    cv::aruco::Dictionary         dictionary_;
-    cv::aruco::DetectorParameters parameters_;
+    // OpenCV 4.6 ArUco API uses Ptr<>-managed dictionary and parameters.
+    cv::Ptr<cv::aruco::Dictionary>         dictionary_;
+    cv::Ptr<cv::aruco::DetectorParameters> parameters_;
 };

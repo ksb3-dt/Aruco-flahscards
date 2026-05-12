@@ -81,12 +81,12 @@ clean: CMakeFiles/ar_flashcards.dir/clean
 CMakeFiles/ar_flashcards.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ar_flashcards.dir/build.make CMakeFiles/ar_flashcards.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ar_flashcards.dir/build.make CMakeFiles/ar_flashcards.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target ar_flashcards"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target ar_flashcards"
 .PHONY : CMakeFiles/ar_flashcards.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ar_flashcards.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ar_flashcards.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles 0
 .PHONY : CMakeFiles/ar_flashcards.dir/rule

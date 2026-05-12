@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ar_flashcards.dir/src/Camera.cpp.o.d"
   "CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.o"
   "CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.o.d"
+  "CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o"
+  "CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o.d"
   "CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o"
   "CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o.d"
   "CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o"

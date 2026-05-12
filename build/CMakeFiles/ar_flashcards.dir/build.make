@@ -97,10 +97,24 @@ CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/CIN/ksb3/Aruco-flahscards/src/IPCamera.cpp -o CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.s
 
+CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o: CMakeFiles/ar_flashcards.dir/flags.make
+CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o: /home/CIN/ksb3/Aruco-flahscards/src/MarkerDetector.cpp
+CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o: CMakeFiles/ar_flashcards.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o -MF CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o.d -o CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o -c /home/CIN/ksb3/Aruco-flahscards/src/MarkerDetector.cpp
+
+CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/CIN/ksb3/Aruco-flahscards/src/MarkerDetector.cpp > CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.i
+
+CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/CIN/ksb3/Aruco-flahscards/src/MarkerDetector.cpp -o CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.s
+
 CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o: CMakeFiles/ar_flashcards.dir/flags.make
 CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o: /home/CIN/ksb3/Aruco-flahscards/src/VideoFileCamera.cpp
 CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o: CMakeFiles/ar_flashcards.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o -MF CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o.d -o CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o -c /home/CIN/ksb3/Aruco-flahscards/src/VideoFileCamera.cpp
 
 CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.s: cmake_force
 CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o: CMakeFiles/ar_flashcards.dir/flags.make
 CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o: /home/CIN/ksb3/Aruco-flahscards/src/WebcamCamera.cpp
 CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o: CMakeFiles/ar_flashcards.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o -MF CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o.d -o CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o -c /home/CIN/ksb3/Aruco-flahscards/src/WebcamCamera.cpp
 
 CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.s: cmake_force
 CMakeFiles/ar_flashcards.dir/src/main.cpp.o: CMakeFiles/ar_flashcards.dir/flags.make
 CMakeFiles/ar_flashcards.dir/src/main.cpp.o: /home/CIN/ksb3/Aruco-flahscards/src/main.cpp
 CMakeFiles/ar_flashcards.dir/src/main.cpp.o: CMakeFiles/ar_flashcards.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ar_flashcards.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ar_flashcards.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ar_flashcards.dir/src/main.cpp.o -MF CMakeFiles/ar_flashcards.dir/src/main.cpp.o.d -o CMakeFiles/ar_flashcards.dir/src/main.cpp.o -c /home/CIN/ksb3/Aruco-flahscards/src/main.cpp
 
 CMakeFiles/ar_flashcards.dir/src/main.cpp.i: cmake_force
@@ -143,6 +157,7 @@ CMakeFiles/ar_flashcards.dir/src/main.cpp.s: cmake_force
 ar_flashcards_OBJECTS = \
 "CMakeFiles/ar_flashcards.dir/src/Camera.cpp.o" \
 "CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.o" \
+"CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o" \
 "CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o" \
 "CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o" \
 "CMakeFiles/ar_flashcards.dir/src/main.cpp.o"
@@ -152,6 +167,7 @@ ar_flashcards_EXTERNAL_OBJECTS =
 
 ar_flashcards: CMakeFiles/ar_flashcards.dir/src/Camera.cpp.o
 ar_flashcards: CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.o
+ar_flashcards: CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o
 ar_flashcards: CMakeFiles/ar_flashcards.dir/src/VideoFileCamera.cpp.o
 ar_flashcards: CMakeFiles/ar_flashcards.dir/src/WebcamCamera.cpp.o
 ar_flashcards: CMakeFiles/ar_flashcards.dir/src/main.cpp.o
@@ -166,7 +182,7 @@ ar_flashcards: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.6.0
 ar_flashcards: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.4.6.0
 ar_flashcards: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.6.0
 ar_flashcards: CMakeFiles/ar_flashcards.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable ar_flashcards"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ar_flashcards"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ar_flashcards.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

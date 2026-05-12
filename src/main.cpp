@@ -15,10 +15,14 @@
 #include <exception>
 #include <iostream>
 #include <string>
+#include <vector>
 
+#include <opencv2/aruco.hpp>
 #include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 
 #include "Camera.h"
+#include "MarkerDetector.h"
 
 namespace {
 
@@ -49,6 +53,7 @@ int main(int argc, char** argv) {
 
     try {
         std::unique_ptr<Camera> camera = Camera::create(uri);
+        MarkerDetector          detector;
 
         std::cout << "Camera opened: " << uri << "\n"
                   << "Resolution:    " << camera->resolution() << "\n"
@@ -62,6 +67,20 @@ int main(int argc, char** argv) {
             if (frame.empty()) {
                 std::cerr << "Empty frame, retrying...\n";
                 continue;
+            }
+
+            // Detect ArUco markers and overlay outlines + IDs on the frame.
+            const std::vector<DetectedMarker> markers = detector.detect(frame);
+            if (!markers.empty()) {
+                std::vector<std::vector<cv::Point2f>> corners;
+                std::vector<int>                      ids;
+                corners.reserve(markers.size());
+                ids.reserve(markers.size());
+                for (const DetectedMarker& m : markers) {
+                    corners.push_back(m.corners);
+                    ids.push_back(m.id);
+                }
+                cv::aruco::drawDetectedMarkers(frame, corners, ids);
             }
 
             cv::imshow(window, frame);

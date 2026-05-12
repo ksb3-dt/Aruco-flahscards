@@ -178,6 +178,30 @@ src/IPCamera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ar_flashcards.dir/build.make CMakeFiles/ar_flashcards.dir/src/IPCamera.cpp.s
 .PHONY : src/IPCamera.cpp.s
 
+src/MarkerDetector.o: src/MarkerDetector.cpp.o
+.PHONY : src/MarkerDetector.o
+
+# target to build an object file
+src/MarkerDetector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ar_flashcards.dir/build.make CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.o
+.PHONY : src/MarkerDetector.cpp.o
+
+src/MarkerDetector.i: src/MarkerDetector.cpp.i
+.PHONY : src/MarkerDetector.i
+
+# target to preprocess a source file
+src/MarkerDetector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ar_flashcards.dir/build.make CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.i
+.PHONY : src/MarkerDetector.cpp.i
+
+src/MarkerDetector.s: src/MarkerDetector.cpp.s
+.PHONY : src/MarkerDetector.s
+
+# target to generate assembly for a file
+src/MarkerDetector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ar_flashcards.dir/build.make CMakeFiles/ar_flashcards.dir/src/MarkerDetector.cpp.s
+.PHONY : src/MarkerDetector.cpp.s
+
 src/VideoFileCamera.o: src/VideoFileCamera.cpp.o
 .PHONY : src/VideoFileCamera.o
 
@@ -265,6 +289,9 @@ help:
 	@echo "... src/IPCamera.o"
 	@echo "... src/IPCamera.i"
 	@echo "... src/IPCamera.s"
+	@echo "... src/MarkerDetector.o"
+	@echo "... src/MarkerDetector.i"
+	@echo "... src/MarkerDetector.s"
 	@echo "... src/VideoFileCamera.o"
 	@echo "... src/VideoFileCamera.i"
 	@echo "... src/VideoFileCamera.s"
