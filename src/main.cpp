@@ -18,15 +18,19 @@
 #include <vector>
 
 #include <opencv2/aruco.hpp>
+#include <opencv2/calib3d.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
 #include "Camera.h"
 #include "MarkerDetector.h"
+#include "PoseEstimator.h"
 
 namespace {
 
 constexpr int kEscKey = 27;
+constexpr double kMarkerSizeMeters = 0.05;
+constexpr float kAxisLengthMeters = 0.05F;
 
 void printUsage(const char* programName) {
     std::cerr
@@ -54,6 +58,8 @@ int main(int argc, char** argv) {
     try {
         std::unique_ptr<Camera> camera = Camera::create(uri);
         MarkerDetector          detector;
+        PoseEstimator           estimator(camera->resolution(),
+                                          kMarkerSizeMeters);
 
         std::cout << "Camera opened: " << uri << "\n"
                   << "Resolution:    " << camera->resolution() << "\n"
@@ -69,7 +75,7 @@ int main(int argc, char** argv) {
                 continue;
             }
 
-            // Detect ArUco markers and overlay outlines + IDs on the frame.
+            // Detect ArUco markers and overlay outlines, IDs, and 3D axes.
             const std::vector<DetectedMarker> markers = detector.detect(frame);
             if (!markers.empty()) {
                 std::vector<std::vector<cv::Point2f>> corners;
@@ -81,6 +87,16 @@ int main(int argc, char** argv) {
                     ids.push_back(m.id);
                 }
                 cv::aruco::drawDetectedMarkers(frame, corners, ids);
+
+                for (const DetectedMarker& marker : markers) {
+                    const Pose pose = estimator.estimate(marker);
+                    cv::drawFrameAxes(frame,
+                                      estimator.cameraMatrix(),
+                                      estimator.distCoeffs(),
+                                      pose.rvec,
+                                      pose.tvec,
+                                      kAxisLengthMeters);
+                }
             }
 
             cv::imshow(window, frame);
