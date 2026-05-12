@@ -22,14 +22,20 @@ public:
     /// Replaces any existing entry for that ID.
     void registerAsset(int markerId, std::unique_ptr<Asset> asset);
 
+    /// Registers a fallback asset used for detected markers without an
+    /// explicit marker-ID mapping.
+    void registerDefaultAsset(std::unique_ptr<Asset> asset);
+
     /// Loads marker-ID -> file-path mappings from a JSON config file.
     /// Expected OBJ-only format for this OpenGL milestone:
     ///
     ///   {
+    ///     "default": { "path": "assets/skull/skull.obj", "color": [0.9, 0.8, 0.7] },
     ///     "3": { "path": "assets/cube.obj", "color": [0.2, 0.8, 1.0] }
     ///   }
     ///
-    /// Keys beginning with '_' are ignored as comments.
+    /// Keys beginning with '_' are ignored as comments. Explicit marker IDs
+    /// override the default asset.
     void loadFromConfig(const std::string& configPath);
 
     /// Returns a non-owning pointer to the asset for `markerId`, or nullptr
@@ -41,7 +47,9 @@ public:
     Renderer* findRenderer(int markerId) const;
 
     /// Number of registered marker mappings.
-    std::size_t size() const { return entries_.size(); }
+    std::size_t size() const {
+        return entries_.size() + (hasDefaultEntry_ ? 1U : 0U);
+    }
 
 private:
     struct Entry {
@@ -49,5 +57,7 @@ private:
         std::unique_ptr<Renderer> renderer;
     };
     double markerSizeMeters_;
+    Entry defaultEntry_;
+    bool hasDefaultEntry_ = false;
     std::unordered_map<int, Entry> entries_;
 };

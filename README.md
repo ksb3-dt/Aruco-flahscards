@@ -61,6 +61,11 @@ With a recorded video clip:
 
 Press `ESC` to quit.
 
+The default `config/assets.json` uses a `default` entry, so the skull model is
+rendered on any detected marker from the `DICT_4X4_50` dictionary. Add numeric
+marker IDs to the JSON only when you want specific cards to override the
+default model.
+
 ## Architecture
 
 See [CLAUDE.md](CLAUDE.md) for the architectural overview, design pattern

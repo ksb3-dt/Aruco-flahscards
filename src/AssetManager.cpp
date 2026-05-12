@@ -44,6 +44,31 @@ int parseMarkerId(const std::string& key) {
     return markerId;
 }
 
+std::unique_ptr<Asset> makeModelAsset(const cv::FileNode& node,
+                                      const std::string& key,
+                                      double markerSizeMeters) {
+    if (!node.isMap()) {
+        throw std::runtime_error(
+            "AssetManager: marker " + key +
+            " must map to an object with path and optional color");
+    }
+
+    const cv::FileNode pathNode = node["path"];
+    const std::string path = static_cast<std::string>(pathNode);
+    if (path.empty()) {
+        throw std::runtime_error(
+            "AssetManager: marker " + key + " is missing path");
+    }
+    if (path.size() < 4 || path.substr(path.size() - 4) != ".obj") {
+        throw std::runtime_error(
+            "AssetManager: only .obj assets are supported in this "
+            "OpenGL milestone: " + path);
+    }
+
+    const cv::Vec3f color = parseColor(node["color"], key);
+    return std::make_unique<ModelAsset>(path, color, markerSizeMeters);
+}
+
 }  // namespace
 
 AssetManager::AssetManager(double markerSizeMeters)
@@ -64,6 +89,19 @@ void AssetManager::registerAsset(int markerId, std::unique_ptr<Asset> asset) {
     entry.renderer = asset->createRenderer();
     entry.asset = std::move(asset);
     entries_[markerId] = std::move(entry);
+}
+
+void AssetManager::registerDefaultAsset(std::unique_ptr<Asset> asset) {
+    if (!asset) {
+        throw std::invalid_argument(
+            "AssetManager: cannot register a null default asset");
+    }
+
+    Entry entry;
+    entry.renderer = asset->createRenderer();
+    entry.asset = std::move(asset);
+    defaultEntry_ = std::move(entry);
+    hasDefaultEntry_ = true;
 }
 
 void AssetManager::loadFromConfig(const std::string& configPath) {
@@ -87,43 +125,29 @@ void AssetManager::loadFromConfig(const std::string& configPath) {
         if (key.empty() || key[0] == '_') {
             continue;
         }
-        if (!node.isMap()) {
-            throw std::runtime_error(
-                "AssetManager: marker " + key +
-                " must map to an object with path and optional color");
+        if (key == "default") {
+            registerDefaultAsset(
+                makeModelAsset(node, key, markerSizeMeters_));
+            continue;
         }
 
-        const cv::FileNode pathNode = node["path"];
-        const std::string path = static_cast<std::string>(pathNode);
-        if (path.empty()) {
-            throw std::runtime_error(
-                "AssetManager: marker " + key + " is missing path");
-        }
-        if (path.size() < 4 || path.substr(path.size() - 4) != ".obj") {
-            throw std::runtime_error(
-                "AssetManager: only .obj assets are supported in this "
-                "OpenGL milestone: " + path);
-        }
-
-        const cv::Vec3f color = parseColor(node["color"], key);
         registerAsset(parseMarkerId(key),
-                      std::make_unique<ModelAsset>(
-                          path, color, markerSizeMeters_));
+                      makeModelAsset(node, key, markerSizeMeters_));
     }
 }
 
 const Asset* AssetManager::findAsset(int markerId) const {
     const auto it = entries_.find(markerId);
-    if (it == entries_.end()) {
-        return nullptr;
+    if (it != entries_.end()) {
+        return it->second.asset.get();
     }
-    return it->second.asset.get();
+    return hasDefaultEntry_ ? defaultEntry_.asset.get() : nullptr;
 }
 
 Renderer* AssetManager::findRenderer(int markerId) const {
     const auto it = entries_.find(markerId);
-    if (it == entries_.end()) {
-        return nullptr;
+    if (it != entries_.end()) {
+        return it->second.renderer.get();
     }
-    return it->second.renderer.get();
+    return hasDefaultEntry_ ? defaultEntry_.renderer.get() : nullptr;
 }

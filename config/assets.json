@@ -1,8 +1,8 @@
 {
-    "_comment": "Default OBJ asset mapping for local smoke tests.",
+    "_comment": "Default OBJ asset shown on any detected DICT_4X4_50 marker.",
 
-    "0": {
-        "path": "assets/cube.obj",
-        "color": [0.2, 0.8, 1.0]
+    "default": {
+        "path": "assets/skull/skull.obj",
+        "color": [0.86, 0.78, 0.66]
     }
 }
