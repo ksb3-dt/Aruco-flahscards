@@ -1,0 +1,3 @@
+/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles/ar_flashcards.dir
+/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles/edit_cache.dir
+/home/CIN/ksb3/Aruco-flahscards/build/CMakeFiles/rebuild_cache.dir

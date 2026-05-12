@@ -1,0 +1,8 @@
+{
+    "_comment": "Map of ArUco marker ID (as string) -> asset file path, relative to the executable working directory. Copy this file to config/assets.json and adjust paths for your printed markers.",
+
+    "0":  "assets/skeleton.png",
+    "1":  "assets/molecule_water.png",
+    "2":  "assets/globe.png",
+    "3":  "assets/cube.obj"
+}
