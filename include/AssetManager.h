@@ -32,6 +32,7 @@ public:
     ///   {
     ///     "0": {
     ///       "path": "assets/objects/skull/skull.obj",
+    ///       "texture": "assets/objects/skull/skull_diffuse.png",
     ///       "color": [0.9, 0.8, 0.7],
     ///       "scale": 0.8,
     ///       "rotation_deg": [0, 0, 0],

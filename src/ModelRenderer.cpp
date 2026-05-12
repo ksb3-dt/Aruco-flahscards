@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <GL/glew.h>
+#include <opencv2/imgproc.hpp>
 
 #include "ModelAsset.h"
 #include "OpenGLRenderContext.h"
@@ -21,6 +22,9 @@ cv::Matx33f normalMatrixFrom(const cv::Matx44f& modelView) {
 }  // namespace
 
 ModelRenderer::~ModelRenderer() {
+    if (texture_ != 0) {
+        glDeleteTextures(1, &texture_);
+    }
     if (ebo_ != 0) {
         glDeleteBuffers(1, &ebo_);
     }
@@ -69,6 +73,13 @@ void ModelRenderer::draw(OpenGLRenderContext& context,
                 color[0],
                 color[1],
                 color[2]);
+    glUniform1i(glGetUniformLocation(program, "uUseTexture"),
+                model->hasTexture() ? GL_TRUE : GL_FALSE);
+    if (model->hasTexture()) {
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture_);
+        glUniform1i(glGetUniformLocation(program, "uTexture"), 1);
+    }
 
     glBindVertexArray(vao_);
     glDrawElements(GL_TRIANGLES,
@@ -80,7 +91,7 @@ void ModelRenderer::draw(OpenGLRenderContext& context,
 
 void ModelRenderer::upload(const ModelAsset& asset) {
     std::vector<float> interleaved;
-    interleaved.reserve(asset.vertices().size() * 6);
+    interleaved.reserve(asset.vertices().size() * 8);
     for (const ModelAsset::Vertex& vertex : asset.vertices()) {
         interleaved.push_back(vertex.position[0]);
         interleaved.push_back(vertex.position[1]);
@@ -88,6 +99,8 @@ void ModelRenderer::upload(const ModelAsset& asset) {
         interleaved.push_back(vertex.normal[0]);
         interleaved.push_back(vertex.normal[1]);
         interleaved.push_back(vertex.normal[2]);
+        interleaved.push_back(vertex.texCoord[0]);
+        interleaved.push_back(1.0F - vertex.texCoord[1]);
     }
 
     if (vao_ == 0) {
@@ -111,7 +124,7 @@ void ModelRenderer::upload(const ModelAsset& asset) {
                  asset.indices().data(),
                  GL_STATIC_DRAW);
 
-    const GLsizei stride = static_cast<GLsizei>(6 * sizeof(float));
+    const GLsizei stride = static_cast<GLsizei>(8 * sizeof(float));
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, nullptr);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(
@@ -122,7 +135,60 @@ void ModelRenderer::upload(const ModelAsset& asset) {
         stride,
         reinterpret_cast<void*>(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(
+        2,
+        2,
+        GL_FLOAT,
+        GL_FALSE,
+        stride,
+        reinterpret_cast<void*>(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
     glBindVertexArray(0);
+
+    if (texture_ != 0) {
+        glDeleteTextures(1, &texture_);
+        texture_ = 0;
+    }
+    if (asset.hasTexture()) {
+        cv::Mat uploadImage;
+        GLenum format = GL_RGB;
+        const cv::Mat& source = asset.textureImage();
+        if (source.channels() == 3) {
+            cv::cvtColor(source, uploadImage, cv::COLOR_BGR2RGB);
+            format = GL_RGB;
+        } else if (source.channels() == 4) {
+            cv::cvtColor(source, uploadImage, cv::COLOR_BGRA2RGBA);
+            format = GL_RGBA;
+        } else if (source.channels() == 1) {
+            cv::cvtColor(source, uploadImage, cv::COLOR_GRAY2RGB);
+            format = GL_RGB;
+        } else {
+            throw std::runtime_error(
+                "ModelRenderer: unsupported texture channel count");
+        }
+
+        const cv::Mat contiguous =
+            uploadImage.isContinuous() ? uploadImage : uploadImage.clone();
+
+        glGenTextures(1, &texture_);
+        glBindTexture(GL_TEXTURE_2D, texture_);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+                        GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        glTexImage2D(GL_TEXTURE_2D,
+                     0,
+                     static_cast<GLint>(format),
+                     contiguous.cols,
+                     contiguous.rows,
+                     0,
+                     format,
+                     GL_UNSIGNED_BYTE,
+                     contiguous.data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
 
     indexCount_ = asset.indices().size();
     uploadedAsset_ = &asset;

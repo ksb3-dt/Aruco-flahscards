@@ -14,6 +14,7 @@ public:
     struct Vertex {
         cv::Vec3f position;
         cv::Vec3f normal;
+        cv::Vec2f texCoord;
     };
 
     /// Optional placement adjustment applied after auto-fit normalization.
@@ -27,7 +28,8 @@ public:
     ModelAsset(const std::string& objPath,
                cv::Vec3f color,
                double markerSizeMeters,
-               Transform transform);
+               Transform transform,
+               std::string texturePath);
 
     std::string name() const override { return name_; }
 
@@ -42,9 +44,14 @@ public:
     /// Diffuse RGB color, each channel in [0, 1].
     cv::Vec3f color() const { return color_; }
 
+    /// Optional texture image loaded from config or OBJ material.
+    const cv::Mat& textureImage() const { return textureImage_; }
+    bool hasTexture() const { return !textureImage_.empty(); }
+
 private:
     std::string name_;
     std::vector<Vertex> vertices_;
     std::vector<unsigned int> indices_;
     cv::Vec3f color_;
+    cv::Mat textureImage_;
 };

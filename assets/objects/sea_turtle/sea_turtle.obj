@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
 # File Created: 21.04.2011 08:41:31
 
-mtllib 10042_Sea_Turtle_V2_iterations-2.mtl
+mtllib sea_turtle.mtl
 
 #
 # object 10042_Sea_Turtle_V1

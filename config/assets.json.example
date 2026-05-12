@@ -10,10 +10,20 @@
     },
 
     "1": {
-        "path": "assets/objects/cube/cube.obj",
-        "color": [0.2, 0.8, 1.0],
-        "scale": 0.7,
+        "path": "assets/objects/saturn/saturn.obj",
+        "texture": "assets/objects/saturn/saturn_diffuse.jpg",
+        "color": [0.9, 0.68, 0.36],
+        "scale": 0.8,
         "rotation_deg": [0, 0, 0],
         "translation": [0, 0, 0]
+    },
+
+    "2": {
+        "path": "assets/objects/sea_turtle/sea_turtle.obj",
+        "texture": "assets/objects/sea_turtle/sea_turtle_diffuse.jpg",
+        "color": [0.18, 0.62, 0.36],
+        "scale": 0.85,
+        "rotation_deg": [-90, 0, 0],
+        "translation": [0, -0.016, 0.005]
     }
 }

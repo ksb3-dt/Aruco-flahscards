@@ -44,8 +44,10 @@ const char* kModelVertexShader = R"glsl(
 #version 330 core
 layout (location = 0) in vec3 aPosition;
 layout (location = 1) in vec3 aNormal;
+layout (location = 2) in vec2 aTexCoord;
 
 out vec3 vNormal;
+out vec2 vTexCoord;
 
 uniform mat4 uProjection;
 uniform mat4 uModelView;
@@ -54,6 +56,7 @@ uniform mat3 uNormalMatrix;
 void main() {
     vec4 eyePosition = uModelView * vec4(aPosition, 1.0);
     vNormal = normalize(uNormalMatrix * aNormal);
+    vTexCoord = aTexCoord;
     gl_Position = uProjection * eyePosition;
 }
 )glsl";
@@ -61,15 +64,19 @@ void main() {
 const char* kModelFragmentShader = R"glsl(
 #version 330 core
 in vec3 vNormal;
+in vec2 vTexCoord;
 
 out vec4 fragColor;
 
 uniform vec3 uColor;
+uniform sampler2D uTexture;
+uniform bool uUseTexture;
 
 void main() {
     vec3 lightDirection = normalize(vec3(0.3, 0.6, 1.0));
     float diffuse = max(dot(normalize(vNormal), lightDirection), 0.0);
-    vec3 color = uColor * (0.25 + 0.75 * diffuse);
+    vec3 baseColor = uUseTexture ? texture(uTexture, vTexCoord).rgb : uColor;
+    vec3 color = baseColor * (0.25 + 0.75 * diffuse);
     fragColor = vec4(color, 1.0);
 }
 )glsl";

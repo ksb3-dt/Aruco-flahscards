@@ -34,6 +34,13 @@ cv::Vec3f parseColor(const cv::FileNode& node, const std::string& key) {
     return color;
 }
 
+std::string parseOptionalString(const cv::FileNode& node) {
+    if (node.empty()) {
+        return {};
+    }
+    return static_cast<std::string>(node);
+}
+
 cv::Vec3f parseVec3(const cv::FileNode& node,
                     const std::string& key,
                     const std::string& field,
@@ -122,8 +129,9 @@ std::unique_ptr<Asset> makeModelAsset(const cv::FileNode& node,
 
     const cv::Vec3f color = parseColor(node["color"], key);
     const ModelAsset::Transform transform = parseTransform(node, key);
+    const std::string texturePath = parseOptionalString(node["texture"]);
     return std::make_unique<ModelAsset>(
-        path, color, markerSizeMeters, transform);
+        path, color, markerSizeMeters, transform, texturePath);
 }
 
 }  // namespace

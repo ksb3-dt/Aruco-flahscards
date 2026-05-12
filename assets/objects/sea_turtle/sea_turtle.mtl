@@ -12,5 +12,5 @@ newmtl _10042_Sea_Turtle_V2_iterations_0_10042_Sea_Turtle_V2_iterations_010042_S
 	Kd 0.5882 0.5882 0.5882
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka 10042_Sea_Turtle_V1_Diffuse.jpg
-	map_Kd 10042_Sea_Turtle_V1_Diffuse.jpg
+	map_Ka sea_turtle_diffuse.jpg
+	map_Kd sea_turtle_diffuse.jpg

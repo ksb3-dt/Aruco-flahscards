@@ -68,6 +68,7 @@ marker ID at the OBJ path:
 ```json
 "2": {
     "path": "assets/objects/heart/heart.obj",
+    "texture": "assets/objects/heart/heart_diffuse.png",
     "color": [1.0, 0.2, 0.2],
     "scale": 0.6,
     "rotation_deg": [0, 0, 0],
@@ -75,6 +76,8 @@ marker ID at the OBJ path:
 }
 ```
 
+`texture` is optional; if present, the renderer samples it using the OBJ's UV
+coordinates. `color` remains the fallback when no texture is configured.
 `scale` is applied after auto-fit normalization. `rotation_deg` and
 `translation` are marker-local adjustments; translation units are meters.
 

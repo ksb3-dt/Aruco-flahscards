@@ -32,7 +32,8 @@ std::unique_ptr<Asset> Asset::createFromFile(const std::string& path) {
             path,
             cv::Vec3f(0.2F, 0.8F, 1.0F),
             0.05,
-            ModelAsset::Transform{});
+            ModelAsset::Transform{},
+            "");
     }
 
     throw std::invalid_argument(

@@ -11,6 +11,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
+#include <opencv2/imgcodecs.hpp>
 
 #include "ModelRenderer.h"
 
@@ -36,7 +37,13 @@ ModelAsset::Vertex convertVertex(const aiMesh& mesh, unsigned int index) {
         markerNormal = normalize(cv::Vec3f(normal.x, -normal.z, normal.y));
     }
 
-    return ModelAsset::Vertex{markerPosition, markerNormal};
+    cv::Vec2f texCoord(0.0F, 0.0F);
+    if (mesh.HasTextureCoords(0)) {
+        const aiVector3D& uv = mesh.mTextureCoords[0][index];
+        texCoord = cv::Vec2f(uv.x, uv.y);
+    }
+
+    return ModelAsset::Vertex{markerPosition, markerNormal, texCoord};
 }
 
 void normalizeToMarker(std::vector<ModelAsset::Vertex>& vertices,
@@ -122,12 +129,32 @@ void applyTransform(std::vector<ModelAsset::Vertex>& vertices,
     }
 }
 
+std::string materialTexturePath(const aiScene& scene,
+                                const std::filesystem::path& objDirectory) {
+    for (unsigned int materialIndex = 0; materialIndex < scene.mNumMaterials;
+         ++materialIndex) {
+        const aiMaterial* material = scene.mMaterials[materialIndex];
+        if (material == nullptr ||
+            material->GetTextureCount(aiTextureType_DIFFUSE) == 0) {
+            continue;
+        }
+
+        aiString texturePath;
+        if (material->GetTexture(
+                aiTextureType_DIFFUSE, 0, &texturePath) == AI_SUCCESS) {
+            return (objDirectory / texturePath.C_Str()).string();
+        }
+    }
+    return {};
+}
+
 }  // namespace
 
 ModelAsset::ModelAsset(const std::string& objPath,
                        cv::Vec3f color,
                        double markerSizeMeters,
-                       Transform transform)
+                       Transform transform,
+                       std::string texturePath)
     : name_(std::filesystem::path(objPath).filename().string()),
       color_(color) {
     if (markerSizeMeters <= 0.0) {
@@ -146,6 +173,20 @@ ModelAsset::ModelAsset(const std::string& objPath,
         throw std::runtime_error(
             "ModelAsset: failed to load OBJ '" + objPath + "': " +
             importer.GetErrorString());
+    }
+
+    const std::filesystem::path objDirectory =
+        std::filesystem::path(objPath).parent_path();
+    if (texturePath.empty()) {
+        texturePath = materialTexturePath(*scene, objDirectory);
+    }
+    if (!texturePath.empty()) {
+        textureImage_ = cv::imread(texturePath, cv::IMREAD_UNCHANGED);
+        if (textureImage_.empty()) {
+            throw std::runtime_error(
+                "ModelAsset: failed to load texture '" + texturePath +
+                "' for " + objPath);
+        }
     }
 
     for (unsigned int meshIndex = 0; meshIndex < scene->mNumMeshes;

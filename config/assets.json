@@ -10,7 +10,8 @@
     },
 
     "1": {
-        "path": "assets/objects/fqzaiz8ryt4w-saturno/saturno/saturno.obj",
+        "path": "assets/objects/saturn/saturn.obj",
+        "texture": "assets/objects/saturn/saturn_diffuse.jpg",
         "color": [0.9, 0.68, 0.36],
         "scale": 0.8,
         "rotation_deg": [0, 0, 0],
@@ -18,10 +19,11 @@
     },
 
     "2": {
-        "path": "assets/objects/10042_Sea_Turtle_V1_L3.123c708c1821-ff1e-470c-a557-b57441fbf771/10042_Sea_Turtle_V2_iterations-2.obj",
+        "path": "assets/objects/sea_turtle/sea_turtle.obj",
+        "texture": "assets/objects/sea_turtle/sea_turtle_diffuse.jpg",
         "color": [0.18, 0.62, 0.36],
-        "scale": 0.8,
-        "rotation_deg": [0, 0, 0],
-        "translation": [0, 0, 0]
+        "scale": 0.85,
+        "rotation_deg": [-90, 0, 0],
+        "translation": [0, -0.016, 0.005]
     }
 }
