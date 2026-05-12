@@ -1,8 +1,19 @@
 {
-    "_comment": "Default OBJ asset shown on any detected DICT_4X4_50 marker.",
+    "_comment": "Map DICT_4X4_50 marker IDs to OBJ assets in assets/objects/.",
 
-    "default": {
-        "path": "assets/skull/skull.obj",
-        "color": [0.86, 0.78, 0.66]
+    "0": {
+        "path": "assets/objects/skull/skull.obj",
+        "color": [0.86, 0.78, 0.66],
+        "scale": 0.65,
+        "rotation_deg": [0, 0, 0],
+        "translation": [0, 0, 0]
+    },
+
+    "1": {
+        "path": "assets/objects/cube/cube.obj",
+        "color": [0.2, 0.8, 1.0],
+        "scale": 0.7,
+        "rotation_deg": [0, 0, 0],
+        "translation": [0, 0, 0]
     }
 }

@@ -34,6 +34,43 @@ cv::Vec3f parseColor(const cv::FileNode& node, const std::string& key) {
     return color;
 }
 
+cv::Vec3f parseVec3(const cv::FileNode& node,
+                    const std::string& key,
+                    const std::string& field,
+                    cv::Vec3f defaultValue) {
+    if (node.empty()) {
+        return defaultValue;
+    }
+    if (!node.isSeq() || node.size() != 3) {
+        throw std::runtime_error(
+            "AssetManager: " + field + " for marker " + key +
+            " must be an array of three numbers");
+    }
+
+    cv::Vec3f value;
+    for (int i = 0; i < 3; ++i) {
+        value[i] = static_cast<float>(static_cast<double>(node[i]));
+    }
+    return value;
+}
+
+float parsePositiveFloat(const cv::FileNode& node,
+                         const std::string& key,
+                         const std::string& field,
+                         float defaultValue) {
+    if (node.empty()) {
+        return defaultValue;
+    }
+
+    const double parsed = static_cast<double>(node);
+    if (parsed <= 0.0) {
+        throw std::runtime_error(
+            "AssetManager: " + field + " for marker " + key +
+            " must be positive");
+    }
+    return static_cast<float>(parsed);
+}
+
 int parseMarkerId(const std::string& key) {
     std::size_t parsed = 0;
     const int markerId = std::stoi(key, &parsed);
@@ -42,6 +79,24 @@ int parseMarkerId(const std::string& key) {
             "AssetManager: marker key is not a valid integer: " + key);
     }
     return markerId;
+}
+
+ModelAsset::Transform parseTransform(const cv::FileNode& node,
+                                     const std::string& key) {
+    ModelAsset::Transform transform;
+    transform.scale =
+        parsePositiveFloat(node["scale"], key, "scale", transform.scale);
+    transform.rotationDegrees =
+        parseVec3(node["rotation_deg"],
+                  key,
+                  "rotation_deg",
+                  transform.rotationDegrees);
+    transform.translation =
+        parseVec3(node["translation"],
+                  key,
+                  "translation",
+                  transform.translation);
+    return transform;
 }
 
 std::unique_ptr<Asset> makeModelAsset(const cv::FileNode& node,
@@ -66,7 +121,9 @@ std::unique_ptr<Asset> makeModelAsset(const cv::FileNode& node,
     }
 
     const cv::Vec3f color = parseColor(node["color"], key);
-    return std::make_unique<ModelAsset>(path, color, markerSizeMeters);
+    const ModelAsset::Transform transform = parseTransform(node, key);
+    return std::make_unique<ModelAsset>(
+        path, color, markerSizeMeters, transform);
 }
 
 }  // namespace

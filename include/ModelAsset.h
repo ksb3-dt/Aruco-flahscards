@@ -16,10 +16,18 @@ public:
         cv::Vec3f normal;
     };
 
+    /// Optional placement adjustment applied after auto-fit normalization.
+    struct Transform {
+        float scale = 1.0F;
+        cv::Vec3f rotationDegrees = cv::Vec3f(0.0F, 0.0F, 0.0F);
+        cv::Vec3f translation = cv::Vec3f(0.0F, 0.0F, 0.0F);
+    };
+
     /// Loads an OBJ mesh and auto-fits it to the marker footprint.
     ModelAsset(const std::string& objPath,
                cv::Vec3f color,
-               double markerSizeMeters);
+               double markerSizeMeters,
+               Transform transform);
 
     std::string name() const override { return name_; }
 

@@ -29,7 +29,10 @@ std::unique_ptr<Asset> Asset::createFromFile(const std::string& path) {
 
     if (extension == ".obj") {
         return std::make_unique<ModelAsset>(
-            path, cv::Vec3f(0.2F, 0.8F, 1.0F), 0.05);
+            path,
+            cv::Vec3f(0.2F, 0.8F, 1.0F),
+            0.05,
+            ModelAsset::Transform{});
     }
 
     throw std::invalid_argument(

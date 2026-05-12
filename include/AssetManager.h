@@ -30,12 +30,17 @@ public:
     /// Expected OBJ-only format for this OpenGL milestone:
     ///
     ///   {
-    ///     "default": { "path": "assets/skull/skull.obj", "color": [0.9, 0.8, 0.7] },
-    ///     "3": { "path": "assets/cube.obj", "color": [0.2, 0.8, 1.0] }
+    ///     "0": {
+    ///       "path": "assets/objects/skull/skull.obj",
+    ///       "color": [0.9, 0.8, 0.7],
+    ///       "scale": 0.8,
+    ///       "rotation_deg": [0, 0, 0],
+    ///       "translation": [0, 0, 0]
+    ///     }
     ///   }
     ///
-    /// Keys beginning with '_' are ignored as comments. Explicit marker IDs
-    /// override the default asset.
+    /// Keys beginning with '_' are ignored as comments. An optional "default"
+    /// entry applies to markers without explicit marker-ID mappings.
     void loadFromConfig(const std::string& configPath);
 
     /// Returns a non-owning pointer to the asset for `markerId`, or nullptr

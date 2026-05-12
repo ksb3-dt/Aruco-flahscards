@@ -61,10 +61,22 @@ With a recorded video clip:
 
 Press `ESC` to quit.
 
-The default `config/assets.json` uses a `default` entry, so the skull model is
-rendered on any detected marker from the `DICT_4X4_50` dictionary. Add numeric
-marker IDs to the JSON only when you want specific cards to override the
-default model.
+`config/assets.json` maps marker IDs from the `DICT_4X4_50` dictionary to OBJ
+models under `assets/objects/`. Add each object in its own folder, then point a
+marker ID at the OBJ path:
+
+```json
+"2": {
+    "path": "assets/objects/heart/heart.obj",
+    "color": [1.0, 0.2, 0.2],
+    "scale": 0.6,
+    "rotation_deg": [0, 0, 0],
+    "translation": [0, 0, 0]
+}
+```
+
+`scale` is applied after auto-fit normalization. `rotation_deg` and
+`translation` are marker-local adjustments; translation units are meters.
 
 ## Architecture
 

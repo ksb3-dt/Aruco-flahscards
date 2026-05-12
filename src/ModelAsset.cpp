@@ -16,6 +16,8 @@
 
 namespace {
 
+constexpr float kDegreesToRadians = static_cast<float>(CV_PI / 180.0);
+
 cv::Vec3f normalize(const cv::Vec3f& value) {
     const float length = std::sqrt(value.dot(value));
     if (length <= std::numeric_limits<float>::epsilon()) {
@@ -77,11 +79,55 @@ void normalizeToMarker(std::vector<ModelAsset::Vertex>& vertices,
     }
 }
 
+cv::Matx33f rotationMatrix(const cv::Vec3f& degrees) {
+    const float rx = degrees[0] * kDegreesToRadians;
+    const float ry = degrees[1] * kDegreesToRadians;
+    const float rz = degrees[2] * kDegreesToRadians;
+
+    const float cx = std::cos(rx);
+    const float sx = std::sin(rx);
+    const float cy = std::cos(ry);
+    const float sy = std::sin(ry);
+    const float cz = std::cos(rz);
+    const float sz = std::sin(rz);
+
+    const cv::Matx33f rotateX(
+        1.0F, 0.0F, 0.0F,
+        0.0F, cx, -sx,
+        0.0F, sx, cx);
+    const cv::Matx33f rotateY(
+        cy, 0.0F, sy,
+        0.0F, 1.0F, 0.0F,
+        -sy, 0.0F, cy);
+    const cv::Matx33f rotateZ(
+        cz, -sz, 0.0F,
+        sz, cz, 0.0F,
+        0.0F, 0.0F, 1.0F);
+
+    return rotateZ * rotateY * rotateX;
+}
+
+void applyTransform(std::vector<ModelAsset::Vertex>& vertices,
+                    const ModelAsset::Transform& transform) {
+    if (transform.scale <= 0.0F) {
+        throw std::invalid_argument("ModelAsset: scale must be positive");
+    }
+
+    const cv::Matx33f rotation = rotationMatrix(transform.rotationDegrees);
+    for (ModelAsset::Vertex& vertex : vertices) {
+        vertex.position =
+            rotation * (vertex.position * transform.scale) +
+            transform.translation;
+        vertex.normal = normalize(rotation * vertex.normal);
+    }
+}
+
 }  // namespace
 
 ModelAsset::ModelAsset(const std::string& objPath,
                        cv::Vec3f color,
-                       double markerSizeMeters)
+                       double markerSizeMeters,
+                       Transform transform)
     : name_(std::filesystem::path(objPath).filename().string()),
       color_(color) {
     if (markerSizeMeters <= 0.0) {
@@ -140,6 +186,7 @@ ModelAsset::ModelAsset(const std::string& objPath,
     }
 
     normalizeToMarker(vertices_, markerSizeMeters);
+    applyTransform(vertices_, transform);
 }
 
 std::unique_ptr<Renderer> ModelAsset::createRenderer() const {
