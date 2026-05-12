@@ -8,6 +8,8 @@
 #include "MarkerDetector.h"
 #include "PoseEstimator.h"
 
+class OpenGLRenderContext;
+
 /// Top-level orchestrator. Composes the camera, detector, pose estimator
 /// and asset manager into the per-frame pipeline:
 ///
@@ -26,6 +28,7 @@ public:
     };
 
     explicit ARApplication(Config config);
+    ~ARApplication();
 
     /// Runs the main loop until the user presses ESC. Throws on
     /// unrecoverable setup failure (e.g. camera cannot be opened).
@@ -33,12 +36,12 @@ public:
 
 private:
     /// Processes one frame: detect markers, estimate pose, draw assets.
-    /// Returns the annotated frame.
-    cv::Mat processFrame(const cv::Mat& frame);
+    void processFrame(cv::Mat& frame);
 
-    Config                       config_;
-    std::unique_ptr<Camera>      camera_;
-    MarkerDetector               detector_;
+    Config                         config_;
+    std::unique_ptr<Camera>        camera_;
+    MarkerDetector                 detector_;
     std::unique_ptr<PoseEstimator> poseEstimator_;  // built lazily once we know the frame size
-    AssetManager                 assetManager_;
+    std::unique_ptr<OpenGLRenderContext> renderContext_;
+    AssetManager                   assetManager_;
 };

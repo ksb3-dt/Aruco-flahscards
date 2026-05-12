@@ -1,0 +1,42 @@
+#pragma once
+
+#include <string>
+#include <vector>
+
+#include <opencv2/core.hpp>
+
+#include "Asset.h"
+
+/// Triangle mesh loaded from an OBJ file and normalized into marker-local
+/// coordinates. The marker plane is XY and +Z points out of the card.
+class ModelAsset final : public Asset {
+public:
+    struct Vertex {
+        cv::Vec3f position;
+        cv::Vec3f normal;
+    };
+
+    /// Loads an OBJ mesh and auto-fits it to the marker footprint.
+    ModelAsset(const std::string& objPath,
+               cv::Vec3f color,
+               double markerSizeMeters);
+
+    std::string name() const override { return name_; }
+
+    std::unique_ptr<Renderer> createRenderer() const override;
+
+    /// Interleaved source data consumed by ModelRenderer.
+    const std::vector<Vertex>& vertices() const { return vertices_; }
+
+    /// Triangle index buffer.
+    const std::vector<unsigned int>& indices() const { return indices_; }
+
+    /// Diffuse RGB color, each channel in [0, 1].
+    cv::Vec3f color() const { return color_; }
+
+private:
+    std::string name_;
+    std::vector<Vertex> vertices_;
+    std::vector<unsigned int> indices_;
+    cv::Vec3f color_;
+};

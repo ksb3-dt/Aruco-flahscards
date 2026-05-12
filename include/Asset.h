@@ -6,8 +6,7 @@
 class Renderer;  // forward declaration — avoids pulling Renderer.h into clients
 
 /// Abstract base for anything that can be overlaid onto a marker. Concrete
-/// subclasses model distinct content types: a textured image, a 3D
-/// wireframe, etc.
+/// subclasses model distinct content types: a textured image, a 3D mesh, etc.
 ///
 /// Each subclass also acts as a Factory (Method pattern) for its compatible
 /// Renderer — clients ask the asset for a renderer and stay decoupled from
@@ -24,8 +23,7 @@ public:
     virtual std::unique_ptr<Renderer> createRenderer() const = 0;
 
     /// Loads an asset from a file, dispatching on the extension:
-    ///   .png .jpg .jpeg .bmp -> TextureAsset
-    ///   .obj                 -> WireframeAsset (subset of OBJ supported)
+    ///   .obj -> ModelAsset
     /// Throws std::invalid_argument for unrecognized extensions.
     static std::unique_ptr<Asset> createFromFile(const std::string& path);
 

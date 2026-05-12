@@ -14,21 +14,22 @@
 /// (Asset::createRenderer()), so the renderer is created once and cached.
 class AssetManager {
 public:
+    /// Creates a manager that normalizes model assets for this marker size.
+    explicit AssetManager(double markerSizeMeters = 0.05);
+
     /// Registers an asset under a marker ID. The manager takes ownership
     /// and creates the matching renderer via asset->createRenderer().
     /// Replaces any existing entry for that ID.
     void registerAsset(int markerId, std::unique_ptr<Asset> asset);
 
     /// Loads marker-ID -> file-path mappings from a JSON config file.
-    /// Expected format (object keys are marker IDs as strings):
+    /// Expected OBJ-only format for this OpenGL milestone:
     ///
     ///   {
-    ///     "3":  "assets/skeleton.png",
-    ///     "7":  "assets/molecule.png",
-    ///     "11": "assets/cube.obj"
+    ///     "3": { "path": "assets/cube.obj", "color": [0.2, 0.8, 1.0] }
     ///   }
     ///
-    /// Each path is passed to Asset::createFromFile().
+    /// Keys beginning with '_' are ignored as comments.
     void loadFromConfig(const std::string& configPath);
 
     /// Returns a non-owning pointer to the asset for `markerId`, or nullptr
@@ -47,5 +48,6 @@ private:
         std::unique_ptr<Asset>    asset;
         std::unique_ptr<Renderer> renderer;
     };
+    double markerSizeMeters_;
     std::unordered_map<int, Entry> entries_;
 };

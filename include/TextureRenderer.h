@@ -9,7 +9,7 @@
 /// Expects `asset` to be a TextureAsset; downcasts at runtime.
 class TextureRenderer : public Renderer {
 public:
-    void draw(cv::Mat&             frame,
+    void draw(OpenGLRenderContext& context,
               const Pose&          pose,
               const Asset&         asset,
               const PoseEstimator& estimator) override;

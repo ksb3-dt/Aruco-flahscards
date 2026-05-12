@@ -22,13 +22,14 @@ a textured 3D wireframe, ...) onto the marker plane in real time.
 
 - Linux (tested on Ubuntu)
 - OpenCV 4 with `opencv_contrib` modules (for ArUco)
+- SDL2, GLEW, OpenGL, and Assimp (for OBJ rendering)
 - CMake ≥ 3.16
 - A C++17 compiler
 
-Install OpenCV on Ubuntu:
+Install dependencies on Ubuntu:
 
 ```bash
-sudo apt install libopencv-dev libopencv-contrib-dev
+sudo apt install libopencv-dev libopencv-contrib-dev libsdl2-dev libglew-dev libassimp-dev
 ```
 
 ## Build
@@ -43,19 +44,19 @@ cmake --build build -j
 Smoke test with an Android phone running the **IP Webcam** app:
 
 ```bash
-./build/ar_flashcards http://<phone-ip>:8080/video
+./build/ar_flashcards http://<phone-ip>:8080/video config/assets.json
 ```
 
 With a local USB webcam:
 
 ```bash
-./build/ar_flashcards webcam:0
+./build/ar_flashcards webcam:0 config/assets.json
 ```
 
 With a recorded video clip:
 
 ```bash
-./build/ar_flashcards file:assets/test_clip.mp4
+./build/ar_flashcards file:assets/test_clip.mp4 config/assets.json
 ```
 
 Press `ESC` to quit.

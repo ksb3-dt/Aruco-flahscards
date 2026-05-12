@@ -13,7 +13,7 @@ public:
     explicit WireframeRenderer(cv::Scalar color = cv::Scalar(0, 255, 0),
                                int        thickness = 2);
 
-    void draw(cv::Mat&             frame,
+    void draw(OpenGLRenderContext& context,
               const Pose&          pose,
               const Asset&         asset,
               const PoseEstimator& estimator) override;

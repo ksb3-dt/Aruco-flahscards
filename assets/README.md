@@ -1,1 +1,6 @@
-# Place flashcard images (.png, .jpg) and 3D wireframe models (.obj) in this directory.
+# Assets
+
+Place OBJ models for OpenGL flashcard rendering in this directory.
+
+The first OpenGL milestone supports solid-color `.obj` meshes only. Image
+assets and textured/material OBJ files are deferred.

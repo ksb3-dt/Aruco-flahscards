@@ -23,6 +23,11 @@ endif()
 find_package(OpenCV 4 REQUIRED
     COMPONENTS core imgproc imgcodecs videoio highgui aruco calib3d
 )
+find_package(OpenGL REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SDL2 REQUIRED IMPORTED_TARGET sdl2)
+pkg_check_modules(GLEW REQUIRED IMPORTED_TARGET glew)
+pkg_check_modules(ASSIMP REQUIRED IMPORTED_TARGET assimp)
 
 message(STATUS "OpenCV version: ${OpenCV_VERSION}")
 message(STATUS "OpenCV libs:    ${OpenCV_LIBS}")
@@ -36,4 +41,10 @@ target_include_directories(ar_flashcards PRIVATE
     "${CMAKE_SOURCE_DIR}/include"
 )
 
-target_link_libraries(ar_flashcards PRIVATE ${OpenCV_LIBS})
+target_link_libraries(ar_flashcards PRIVATE
+    ${OpenCV_LIBS}
+    OpenGL::GL
+    PkgConfig::SDL2
+    PkgConfig::GLEW
+    PkgConfig::ASSIMP
+)
